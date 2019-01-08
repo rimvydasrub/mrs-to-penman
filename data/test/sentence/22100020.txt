@@ -1,0 +1,1 @@
+Before, callers of 900 numbers would just listen and not talk, or they'd vote "yes" or "no" by calling one of two numbers.

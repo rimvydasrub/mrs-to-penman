@@ -1,14 +1,11 @@
-#!/usr/bin/env python3
-
 import sys
 import os
 import re
 import argparse
 import json
-import pickle
 
 from delphin.interfaces import ace
-from delphin.mrs import xmrs, simplemrs, penman, Dmrs
+from delphin.mrs import xmrs, simplemrs, penman
 from delphin.mrs.components import var_sort
 from delphin import itsdb
 
@@ -32,10 +29,10 @@ def run(args):
 
 def process(items, args):
     for item_id, snt, mrss in items:
-        # print('# ::id {}\n# ::snt {}'.format(item_id, snt))
+        print('# ::id {}\n# ::snt {}'.format(item_id, snt))
         for mrs in mrss[:args.n]:
             try:
-                make_penman(item_id, mrs, args)
+                print(make_penman(mrs, args))
             except penman.penman.EncodeError as ex:
                 print('Item {}\t{}'.format(item_id, str(ex)),
                       file=sys.stderr)
@@ -102,11 +99,11 @@ def read_profile(f, args):
         yield (cur_id, inputs[cur_id], mrss)
 
 
-def make_penman(item_id, x, args):
+def make_penman(x, args):
     g = make_graph(x, args)
-    dic = g.to_dict()
-    with open('data/test/'+item_id+'.pickle', 'wb') as f:
-        pickle.dump(dic, f, protocol=pickle.HIGHEST_PROTOCOL)
+    p = codec.encode(g)
+    return p
+
 
 def make_graph(x, args):
     if args.parameters:
@@ -144,9 +141,8 @@ def make_graph(x, args):
                 params['substitute_attribute_value'],
                 params['default_attribute_value']
             )
-    # Transform graph to DMRS
-    dmrs = xmrs.Dmrs.from_triples(g.triples())
-    return dmrs
+
+    return g
 
 def _substitute_attrval(g, subs, default_value):
     attrs = set(g.attributes())
@@ -179,4 +175,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

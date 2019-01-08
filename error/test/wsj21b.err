@@ -1,0 +1,20 @@
+mrs_to_penman_old.py:82: DeprecationWarning: The 'ItsdbProfile' class is deprecated and will be removed from version 1.0.0; use the following instead: TestSuite
+  p = itsdb.ItsdbProfile(f)
+Traceback (most recent call last):
+  File "mrs_to_penman_old.py", line 192, in <module>
+    main()
+  File "mrs_to_penman_old.py", line 188, in main
+    run(args)
+  File "mrs_to_penman_old.py", line 26, in run
+    process(read_profile(args.input, args), args)
+  File "mrs_to_penman_old.py", line 42, in process
+    make_penman(snt, item_id, mrs, args)
+  File "mrs_to_penman_old.py", line 113, in make_penman
+    g = make_graph(x, args)
+  File "mrs_to_penman_old.py", line 159, in make_graph
+    dmrs = xmrs.Dmrs.from_triples(g.triples())
+  File "/afs/inf.ed.ac.uk/user/s15/s1557887/.conda/envs/ned/lib/python3.7/site-packages/delphin/mrs/xmrs.py", line 1149, in from_triples
+    links = [Link(nidmap[s], nidmap[t], r, p) for s, t, r, p in edges]
+  File "/afs/inf.ed.ac.uk/user/s15/s1557887/.conda/envs/ned/lib/python3.7/site-packages/delphin/mrs/xmrs.py", line 1149, in <listcomp>
+    links = [Link(nidmap[s], nidmap[t], r, p) for s, t, r, p in edges]
+KeyError: '10014'
